@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+bin="bin"
+
+if [[ ! -d $bin ]]; then
+  mkdir $bin
+fi
+
+g++ -std=gnu++11 -O3 src/*.cpp -o bin/Main.exe
