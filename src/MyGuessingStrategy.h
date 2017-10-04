@@ -116,10 +116,10 @@ private:
 
     string _pattern;
 
-    unordered_set<char> _guessedLetters;
+    vector<bool> _guessedLetters;
 
     template<class InputIterator>
-    WordSet(const string & pattern, const unordered_set<char> & guessedLetters, InputIterator first, InputIterator last) {
+    WordSet(const string & pattern, const vector<bool> & guessedLetters, InputIterator first, InputIterator last) {
       _pattern = pattern;
       _guessedLetters = guessedLetters;
       insert(first, last);
@@ -150,10 +150,10 @@ private:
     /**
      * Give a suggest of the most probable letter not in the excluded letter set.
      */
-    char suggest(const unordered_set<char> & excluded) {
+    char suggest(const vector<bool> & excluded) {
       //NOTE: C++11 auto and for
       for (const auto & ls : _order) {
-        if (!excluded.count(ls._ch)) {
+        if (!excluded[ls._ch - 'A']) {
           return ls._ch;
         }
       }
@@ -180,6 +180,14 @@ private:
     return count;
   }
 
+  static inline vector<bool> charSetToVec(const unordered_set<char> & set) {
+    vector<bool> vec(26);
+    for (char ch : set) {
+      vec[ch - 'A'] = true;
+    }
+    return vec;
+  }
+
   //Disable copy and assignment
   //NOTE: C++11 "= delete"
   MyGuessingStrategy(const MyGuessingStrategy &) = delete;
@@ -197,7 +205,7 @@ public:
         words.push_back(*first);
       }
     }
-    _wordset.reset(new WordSet(pattern, game.getAllGuessedLetters(), words.begin(), words.end()));
+    _wordset.reset(new WordSet(pattern, charSetToVec(game.getAllGuessedLetters()), words.begin(), words.end()));
   }
 
   //NOTE: C++11 shared_ptr
