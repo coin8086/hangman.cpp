@@ -13,11 +13,11 @@ public:
     _guess = guess;
   }
 
-  void makeGuess(HangmanGame & game) {
+  void makeGuess(HangmanGame & game) override {
     game.guessWord(_guess);
   }
 
-  string toString() const {
+  string toString() const override {
     stringstream ss;
     ss <<  "GuessWord[" << _guess << "]";
     return ss.str();

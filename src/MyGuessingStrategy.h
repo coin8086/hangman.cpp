@@ -209,9 +209,9 @@ public:
   }
 
   //NOTE: C++11 shared_ptr
-  shared_ptr<Guess> nextGuess(const HangmanGame & game);
+  shared_ptr<Guess> nextGuess(const HangmanGame & game) override;
 
-  string toString() const {
+  string toString() const override {
     stringstream ss;
     ss << "MyGuessingStrategy[" << _wordset->toString() << "]";
     return ss.str();
