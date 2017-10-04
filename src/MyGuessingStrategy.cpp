@@ -61,7 +61,6 @@ shared_ptr<Guess> MyGuessingStrategy::nextGuess(const HangmanGame & game) {
     }
   }
 
-  //TODO: Is it OK to use "==" for C++ sets?
   //Update the wordset when the game status(pattern and guessed) doesn't match.
   if (!(pattern == _wordset->_pattern && guessed == _wordset->_guessedLetters)) {
     //Update wordset on a previous guess result, be it successful or not.
@@ -89,7 +88,6 @@ shared_ptr<Guess> MyGuessingStrategy::nextGuess(const HangmanGame & game) {
     int idx = pattern.find(HangmanGame::MYSTERY_LETTER);
     string word = pattern;
     word[idx] = ch;
-    //TODO: Move operation for Guess and its subclasses since NRVO not applicable
     //for so many returns?
     return shared_ptr<Guess>(new GuessWord(word));
   }

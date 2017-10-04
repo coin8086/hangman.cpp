@@ -27,7 +27,6 @@ unordered_set<string> loadDictionary(const char * file) {
 
 //Run game
 int run(HangmanGame & game, GuessingStrategy & strategy, bool debug) {
-  //TODO: scoped enum...
   while(game.gameStatus() == HangmanGame::Status::KEEP_GUESSING) {
     if (debug) {
       cerr << game.toString() << endl;
