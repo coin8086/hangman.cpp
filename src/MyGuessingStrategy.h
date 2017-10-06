@@ -208,9 +208,10 @@ public:
     _wordset.reset(new WordSet(pattern, charSetToVec(game.getAllGuessedLetters()), words.begin(), words.end()));
   }
 
-  //NOTE: C++11 shared_ptr
+  //NOTE: C++11 shared_ptr and override
   shared_ptr<Guess> nextGuess(const HangmanGame & game) override;
 
+  //NOTE: C++11 override
   string toString() const override {
     stringstream ss;
     ss << "MyGuessingStrategy[" << _wordset->toString() << "]";
