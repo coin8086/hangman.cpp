@@ -68,16 +68,19 @@ shared_ptr<Guess> MyGuessingStrategy::nextGuess(const HangmanGame & game) {
   }
 
   if (_wordset->size() == 1) {
-    return shared_ptr<Guess>(new GuessWord(*_wordset->begin()));
+    //NOTE: C++11 make_shared
+    return make_shared<GuessWord>(*_wordset->begin());
   }
 
   if (numOfBlanks(pattern) > 1) {
     if (!game.numWrongGuessesRemaining()) {
       //Simply return the first word in the word set for the last chance.
-      return shared_ptr<Guess>(new GuessWord(*_wordset->begin()));
+      //NOTE: C++11 make_shared
+      return make_shared<GuessWord>(*_wordset->begin());
     }
     else {
-      return shared_ptr<Guess>(new GuessLetter((_wordset->suggest(guessedLetters))));
+      //NOTE: C++11 make_shared
+      return make_shared<GuessLetter>(_wordset->suggest(guessedLetters));
     }
   }
   else {
@@ -88,8 +91,8 @@ shared_ptr<Guess> MyGuessingStrategy::nextGuess(const HangmanGame & game) {
     int idx = pattern.find(HangmanGame::MYSTERY_LETTER);
     string word = pattern;
     word[idx] = ch;
-    //for so many returns?
-    return shared_ptr<Guess>(new GuessWord(word));
+    //NOTE: C++11 make_shared
+    return make_shared<GuessWord>(word);
   }
 }
 
