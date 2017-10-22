@@ -24,25 +24,16 @@ private:
 
     class LetterStat {
     public:
-      char _ch;
-      int _count;  //How many times the letter appears in a WordSet
-      int _wordCount;  //How many words contains the letter in a WordSet
+      //NOTE: C++11 in-class initialization
+      char _ch = 0;
+      int _count = 0;  //How many times the letter appears in a WordSet
+      int _wordCount = 0;  //How many words contains the letter in a WordSet
 
-      LetterStat(char ch) : _ch(ch), _count(0), _wordCount(0) {}
+      LetterStat(char ch) : _ch(ch) {}
 
       //STL containers like map require a default constructor.
-      LetterStat() : _ch(0), _count(0), _wordCount(0) {}
-
-      //STL algorithms like swap(called by sort) require a copy constructor and
-      //an assignment operator.
-      LetterStat(const LetterStat & rhs) : _ch(rhs._ch), _count(rhs._count), _wordCount(rhs._wordCount) {}
-
-      LetterStat & operator=(const LetterStat & rhs) {
-        _ch = rhs._ch;
-        _count = rhs._count;
-        _wordCount = rhs._wordCount;
-        return *this;
-      }
+      //NOTE: C++11 "= default" generating the default behavior by compiler.
+      LetterStat() = default;
 
       bool operator<(const LetterStat & rhs) const {
         if (_count > rhs._count)
